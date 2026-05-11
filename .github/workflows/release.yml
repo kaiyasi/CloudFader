@@ -1,0 +1,40 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build exe
+        run: npm run build
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: musicweb.exe
+          body: |
+            ## 使用方式
+
+            1. 下載 `musicweb.exe`
+            2. 建立 `audio/` 資料夾（與 exe 同目錄），放入 `.mp3` / `.m4a` / `.wav` 音樂檔
+            3. 雙擊執行 `musicweb.exe`
+            4. 瀏覽器自動開啟播放端；控制台請用終端機顯示的網址
+
+            > 首次執行會自動下載 `cloudflared.exe`（需要網路）。
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>播放端</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body data-mode="player">
+    <main class="shell playerShell">
+      <header class="topbar">
+        <div class="brandBlock">
+          <p class="eyebrow">Player Node</p>
+          <h1>現場播放端</h1>
+        </div>
+        <div class="topActions">
+          <button class="devicePill" id="deviceToggle" type="button">
+            <span class="dot"></span>
+            <span id="deviceSummary">裝置</span>
+          </button>
+          <a class="modeLink" href="/">控制台</a>
+        </div>
+      </header>
+
+      <section class="stagePanel playerStage">
+        <div class="stageMeta">
+          <span class="statusPill" id="syncStatus">連線中</span>
+          <span class="rolePill">播放端</span>
+        </div>
+        <div class="nowPlayingVisual">
+          <div class="nowPlayingBars" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="nowPlayingInfo">
+          <p class="label">接收曲目</p>
+          <h2 id="currentTitle">載入中</h2>
+        </div>
+      </section>
+
+      <section class="timeline compactTimeline">
+        <span id="elapsed">0:00</span>
+        <input id="seek" type="range" min="0" max="1000" value="0" />
+        <span id="duration">0:00</span>
+      </section>
+
+      <section class="transport" id="controllerOnly">
+        <button class="mainButton" id="playPause" type="button" aria-label="播放或暫停">
+          <span id="playIcon">▶</span>
+        </button>
+      </section>
+
+      <section class="playerArm" id="playerOnly">
+        <button class="armButton" id="armButton" type="button">啟用此裝置播放</button>
+        <p id="playerHint">請先點擊啟用，讓瀏覽器允許播放聲音；之後會由控制台同步指揮。</p>
+      </section>
+
+      <section class="volumePanel playerVolume">
+        <label for="volume">輸出音量</label>
+        <input id="volume" type="range" min="0" max="200" value="85" />
+        <span id="volumeValue">85%</span>
+      </section>
+
+      <div class="secondaryActions">
+        <button class="ghostButton" id="stopButton" type="button">停止</button>
+      </div>
+
+      <section class="devicePanel" id="devicePanel">
+        <div class="sectionHeader">
+          <div>
+            <p class="label">同步裝置</p>
+            <h2>本機狀態</h2>
+          </div>
+          <div class="statusPill subtle" id="leadStatus">-- ms</div>
+        </div>
+        <div class="devices" id="deviceList"></div>
+      </section>
+
+      <section class="tracks" id="trackList" aria-label="播放清單"></section>
+    </main>
+
+    <audio id="audio" preload="auto" playsinline></audio>
+    <script src="/app.js"></script>
+  </body>
+</html>

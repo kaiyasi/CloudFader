@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Runtime & logs
+logs/
+*.log
+
+# Audio files (put your tracks in audio/ before running)
+audio/
+!audio/.gitkeep
+
+# Portable tools (node.exe, cloudflared.exe)
+tools/
+
+# Build output
+musicweb.exe
+*.exe
+
+# pkg snapshot cache
+*.blob
+
+# Runtime data
+data/
+
+# OS
+.DS_Store
+Thumbs.db
