@@ -1,12 +1,12 @@
 {
-  "name": "musicweb-sync-console",
+  "name": "cloudfader",
   "version": "1.0.0",
   "private": true,
-  "description": "Local multi-device music playback console.",
+  "description": "Multi-device synchronized music playback for live events. By Serelix Studio.",
   "license": "MIT",
   "scripts": {
     "start": "node launcher.js",
-    "build": "pkg launcher.js --target node20-win-x64 --output musicweb.exe --compress GZip"
+    "build": "pkg launcher.js --target node20-win-x64 --output CloudFader.exe --compress GZip"
   },
   "engines": {
     "node": ">=18"

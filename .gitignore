@@ -13,7 +13,7 @@ audio/
 tools/
 
 # Build output
-musicweb.exe
+CloudFader.exe
 *.exe
 
 # pkg snapshot cache

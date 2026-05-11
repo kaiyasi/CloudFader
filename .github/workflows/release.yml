@@ -26,15 +26,25 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: musicweb.exe
+          files: CloudFader.exe
           body: |
-            ## 使用方式
+            ## CloudFader ${{ github.ref_name }}
 
-            1. 下載 `musicweb.exe`
-            2. 建立 `audio/` 資料夾（與 exe 同目錄），放入 `.mp3` / `.m4a` / `.wav` 音樂檔
-            3. 雙擊執行 `musicweb.exe`
-            4. 瀏覽器自動開啟播放端；控制台請用終端機顯示的網址
+            Developed by **Serelix Studio**
 
-            > 首次執行會自動下載 `cloudflared.exe`（需要網路）。
+            ---
+
+            ### How to use / 使用方式
+
+            1. Download `CloudFader.exe` below
+            2. Create an `audio/` folder next to the exe and place your music files inside (`.mp3` / `.m4a` / `.wav` / `.ogg`)
+            3. Double-click `CloudFader.exe`
+            4. The terminal shows a public Cloudflare URL — open it on any device to control playback
+
+            > First launch auto-downloads `cloudflared.exe` (internet required).
+
+            ---
+
+            For questions or issues: **zengcode0315@gmail.com**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

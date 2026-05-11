@@ -20,7 +20,7 @@ function HR($Char = "─") {
 }
 
 function Banner {
-  $title  = "MusicWeb  ·  畢業典禮播音同步系統"
+  $title  = "CloudFader  ·  現場活動播音同步系統  ·  Serelix Studio"
   $inner  = " " * 2 + $title
   $padded = $inner.PadRight($W)
   Write-Host ""

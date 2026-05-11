@@ -45,7 +45,7 @@ function section(text) {
 }
 
 function banner() {
-  const title = 'MusicWeb  ·  畢業典禮播音同步系統';
+  const title = 'CloudFader  ·  現場活動播音同步系統  ·  Serelix Studio';
   const pad   = ' '.repeat(Math.max(0, W - title.length - 3));
   console.log('');
   console.log('  ' + cc(96, '═'.repeat(W)));
