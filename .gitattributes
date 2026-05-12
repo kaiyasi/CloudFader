@@ -1,0 +1,9 @@
+# Keep GitHub language stats focused on the application source.
+public/styles.css linguist-vendored
+public/*.html linguist-vendored
+.github/** linguist-vendored
+
+# Generated/runtime assets should not affect repository language stats.
+audio/** linguist-generated
+logs/** linguist-generated
+tools/** linguist-generated

@@ -31,7 +31,7 @@ if (!deviceId) {
 
 let deviceName = localStorage.getItem(deviceNameKey);
 if (!deviceName) {
-  deviceName = `${isPlayer ? "播放端" : "控制台"} ${deviceId.slice(0, 4)}`;
+  deviceName = `${isPlayer ? "Player" : "Controller"} ${deviceId.slice(0, 4)}`;
   localStorage.setItem(deviceNameKey, deviceName);
 }
 
@@ -65,7 +65,7 @@ function formatTime(seconds) {
 }
 
 function roleLabel(role) {
-  return role === "player" ? "播放端" : "控制台";
+  return role === "player" ? "Player" : "Controller";
 }
 
 function escapeHtml(value) {
@@ -212,11 +212,11 @@ function renderDevices() {
   const armedCount = devices.filter((device) => device.role === "player" && device.armed).length;
 
   leadStatus.textContent = `${lead} ms`;
-  if (deviceSummary) deviceSummary.textContent = `${armedCount}/${playerCount} 台`;
+  if (deviceSummary) deviceSummary.textContent = `${armedCount}/${playerCount} players`;
   deviceList.innerHTML = "";
 
   if (!devices.length) {
-    deviceList.innerHTML = `<div class="device"><div><strong>尚無裝置</strong><span>播放端開啟頁面後會出現在這裡</span></div><div class="deviceMetrics">--</div></div>`;
+    deviceList.innerHTML = `<div class="device"><div><strong>No devices</strong><span>Enabled player pages will appear here.</span></div><div class="deviceMetrics">--</div></div>`;
     return;
   }
 
@@ -227,8 +227,8 @@ function renderDevices() {
     node.className = `device ${device.role} ${fresh ? "online" : "offline"}`;
     node.innerHTML = `
       <div>
-        <strong>${escapeHtml(device.name)}${device.id === deviceId ? "（本機）" : ""}</strong>
-        <span>${roleLabel(device.role)} · ${device.armed ? "已啟用" : "未啟用"} · ${fresh ? "在線" : "離線"}</span>
+        <strong>${escapeHtml(device.name)}${device.id === deviceId ? " (this device)" : ""}</strong>
+        <span>${roleLabel(device.role)} - ${device.armed ? "enabled" : "not enabled"} - ${fresh ? "online" : "offline"}</span>
       </div>
       <div class="deviceMetrics">
         RTT ${device.latencyMs || 0} ms<br />
@@ -259,7 +259,7 @@ function playFromSyncedPosition() {
   audio.currentTime = statePosition(state);
   audio.play().catch(() => {
     armed = false;
-    updateStatus("需要啟用");
+    updateStatus("Enable required");
     reportDevice();
   });
 }
@@ -339,16 +339,16 @@ function applyState(next) {
   if (!trackList.children.length) renderTracks();
   setTrack(track);
 
-  currentTitle.textContent = track?.title || "無曲目";
+  currentTitle.textContent = track?.title || "No tracks";
   const remoteVolume = gainToUiVolume(next.volume);
   const keepLocalVolume = !isPlayer && Date.now() - lastLocalVolumeAt < 400;
   if (!keepLocalVolume) volume.value = remoteVolume;
   volumeValue.textContent = `${volume.value}%`;
-  if (volumeEcho) volumeEcho.textContent = `音量 ${volume.value}%`;
+  if (volumeEcho) volumeEcho.textContent = `Volume ${volume.value}%`;
   if (isPlayer) applyOutputGain(next.volume ?? 0.85);
-  if (playIcon) playIcon.textContent = next.status === "playing" ? "Ⅱ" : "▶";
+  if (playIcon) playIcon.textContent = next.status === "playing" ? "Pause" : "Play";
   document.body.classList.toggle("is-playing", next.status === "playing");
-  updateStatus(next.status === "playing" ? "播放中" : "待命");
+  updateStatus(next.status === "playing" ? "Playing" : "Ready");
   renderDevices();
 
   document.querySelectorAll(".track").forEach((node) => {
@@ -378,10 +378,10 @@ function connectEvents() {
     lastVersionApplied = -1;
     clockOffset = 0; // discard stale offset on reconnect; syncClock will remeasure fresh
     syncClock(7).catch(() => {});
-    updateStatus(state?.status === "playing" ? "播放中" : "已連線");
+    updateStatus(state?.status === "playing" ? "Playing" : "Connected");
   });
   events.addEventListener("state", (event) => applyState(JSON.parse(event.data)));
-  events.addEventListener("error", () => updateStatus("重連中"));
+  events.addEventListener("error", () => updateStatus("Reconnecting"));
 }
 
 if (playPause) {
@@ -411,14 +411,14 @@ if (armButton) {
       await audio.play();
       audio.pause();
       document.body.classList.add("armed");
-      armButton.textContent = "✓ 此裝置已啟用";
-      if (playerHint) playerHint.textContent = "等待控制台指令。";
+      armButton.textContent = "Player Enabled";
+      if (playerHint) playerHint.textContent = "Waiting for controller commands.";
       await reportDevice();
       schedulePlayback();
     } catch {
       armed = false;
       document.body.classList.remove("armed");
-      if (playerHint) playerHint.textContent = "啟用失敗，請再點一次。";
+      if (playerHint) playerHint.textContent = "Enable failed. Tap again.";
       await reportDevice();
     }
   });
@@ -434,7 +434,7 @@ if (deviceToggle && devicePanel) {
 volume.addEventListener("input", () => {
   lastLocalVolumeAt = Date.now();
   volumeValue.textContent = `${volume.value}%`;
-  if (volumeEcho) volumeEcho.textContent = `音量 ${volume.value}%`;
+  if (volumeEcho) volumeEcho.textContent = `Volume ${volume.value}%`;
   if (isPlayer) applyOutputGain(uiVolumeToGain());
   scheduleVolumeSync(false);
 });

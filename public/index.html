@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>播音控制台</title>
+    <title>CloudFader Control</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body data-mode="controller">
@@ -11,21 +11,21 @@
       <header class="topbar">
         <div class="brandBlock">
           <p class="eyebrow">Control Room</p>
-          <h1>現場活動播音</h1>
+          <h1>CloudFader</h1>
         </div>
         <div class="topActions">
           <button class="devicePill" id="deviceToggle" type="button">
             <span class="dot"></span>
-            <span id="deviceSummary">裝置</span>
+            <span id="deviceSummary">0/0 players</span>
           </button>
-          <a class="modeLink" href="/player.html">播放端</a>
+          <a class="modeLink" href="/player.html">Player</a>
         </div>
       </header>
 
       <section class="stagePanel">
         <div class="stageMeta">
-          <span class="statusPill" id="syncStatus">連線中</span>
-          <span class="rolePill">主控端</span>
+          <span class="statusPill" id="syncStatus">Connecting</span>
+          <span class="rolePill">Controller</span>
         </div>
         <div class="nowPlayingVisual">
           <div class="nowPlayingBars" aria-hidden="true">
@@ -34,8 +34,8 @@
           </div>
         </div>
         <div class="nowPlayingInfo">
-          <p class="label">目前曲目</p>
-          <h2 id="currentTitle">載入中</h2>
+          <p class="label">Now Playing</p>
+          <h2 id="currentTitle">Loading</h2>
         </div>
       </section>
 
@@ -46,12 +46,12 @@
           <span id="duration">0:00</span>
         </div>
         <div class="controlRow">
-          <button class="ghostButton danger" id="stopButton" type="button">停止</button>
-          <button class="mainButton" id="playPause" type="button" aria-label="播放或暫停">
-            <span id="playIcon">▶</span>
+          <button class="ghostButton danger" id="stopButton" type="button">Stop</button>
+          <button class="mainButton" id="playPause" type="button" aria-label="Play or pause">
+            <span id="playIcon">Play</span>
           </button>
           <div class="volumePanel">
-            <label for="volume">音量</label>
+            <label for="volume">Volume</label>
             <input id="volume" type="range" min="0" max="200" value="85" />
             <span id="volumeValue">85%</span>
           </div>
@@ -59,15 +59,15 @@
       </section>
 
       <section class="playerArm" id="playerOnly">
-        <button class="armButton" id="armButton" type="button">啟用此裝置播放</button>
-        <p id="playerHint">瀏覽器需要先點一下，之後就能接收控制台同步播放。</p>
+        <button class="armButton" id="armButton" type="button">Enable Player</button>
+        <p id="playerHint">Player mode waits for controller commands after it is enabled.</p>
       </section>
 
       <section class="devicePanel" id="devicePanel">
         <div class="sectionHeader">
           <div>
-            <p class="label">同步裝置</p>
-            <h2>播放端狀態</h2>
+            <p class="label">Live Devices</p>
+            <h2>Playback Nodes</h2>
           </div>
           <div class="statusPill subtle" id="leadStatus">-- ms</div>
         </div>
@@ -77,11 +77,11 @@
       <section class="libraryPanel">
         <div class="sectionHeader">
           <div>
-            <p class="label">播放清單</p>
-            <h2>曲目</h2>
+            <p class="label">Library</p>
+            <h2>Tracks</h2>
           </div>
         </div>
-        <div class="tracks" id="trackList" aria-label="播放清單"></div>
+        <div class="tracks" id="trackList" aria-label="Track library"></div>
       </section>
     </main>
 

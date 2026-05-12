@@ -1,9 +1,25 @@
 {
   "name": "cloudfader",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Multi-device synchronized music playback for live events. By Serelix Studio.",
   "license": "MIT",
+  "author": "Serelix Studio",
+  "homepage": "https://github.com/kaiyasi/CloudFader#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiyasi/CloudFader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kaiyasi/CloudFader/issues"
+  },
+  "keywords": [
+    "audio",
+    "music",
+    "synchronized-playback",
+    "live-events",
+    "cloudflare-tunnel"
+  ],
   "scripts": {
     "start": "node launcher.js",
     "build": "pkg launcher.js --target node20-win-x64 --output CloudFader.exe --compress GZip"

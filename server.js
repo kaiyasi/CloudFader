@@ -267,7 +267,7 @@ async function handleDevice(req, res) {
     const device = {
       ...existing,
       id: String(input.id),
-      name: String(input.name || existing.name || "未命名裝置").slice(0, 40),
+      name: String(input.name || existing.name || "Unnamed device").slice(0, 40),
       role: input.role === "player" ? "player" : "controller",
       armed: Boolean(input.armed),
       latencyMs: Math.max(0, Math.min(5000, Number(input.latencyMs) || 0)),

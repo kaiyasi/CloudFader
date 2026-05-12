@@ -1,50 +1,58 @@
-name: Build & Release
+name: Build Release
 
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag, for example v1.0.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build exe
+      - name: Build executable
         run: npm run build
 
-      - name: Create Release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: CloudFader ${{ github.event.inputs.tag || github.ref_name }}
           files: CloudFader.exe
+          fail_on_unmatched_files: true
+          generate_release_notes: true
           body: |
-            ## CloudFader ${{ github.ref_name }}
+            ## CloudFader ${{ github.event.inputs.tag || github.ref_name }}
 
-            Developed by **Serelix Studio**
+            Download `CloudFader.exe` below. This is the only end-user file required.
 
-            ---
+            ### Quick Start
 
-            ### How to use / 使用方式
+            1. Create an `audio` folder next to `CloudFader.exe`.
+            2. Put `.mp3`, `.m4a`, `.wav`, or `.ogg` files in that folder.
+            3. Double-click `CloudFader.exe`.
+            4. Open the displayed URL on phones, tablets, or player devices.
 
-            1. Download `CloudFader.exe` below
-            2. Create an `audio/` folder next to the exe and place your music files inside (`.mp3` / `.m4a` / `.wav` / `.ogg`)
-            3. Double-click `CloudFader.exe`
-            4. The terminal shows a public Cloudflare URL — open it on any device to control playback
-
-            > First launch auto-downloads `cloudflared.exe` (internet required).
-
-            ---
-
-            For questions or issues: **zengcode0315@gmail.com**
+            On first launch, CloudFader downloads `cloudflared.exe` automatically for public tunnel support.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>播放端</title>
+    <title>CloudFader Player</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body data-mode="player">
@@ -11,21 +11,21 @@
       <header class="topbar">
         <div class="brandBlock">
           <p class="eyebrow">Player Node</p>
-          <h1>現場播放端</h1>
+          <h1>CloudFader Player</h1>
         </div>
         <div class="topActions">
           <button class="devicePill" id="deviceToggle" type="button">
             <span class="dot"></span>
-            <span id="deviceSummary">裝置</span>
+            <span id="deviceSummary">0/0 players</span>
           </button>
-          <a class="modeLink" href="/">控制台</a>
+          <a class="modeLink" href="/">Control</a>
         </div>
       </header>
 
       <section class="stagePanel playerStage">
         <div class="stageMeta">
-          <span class="statusPill" id="syncStatus">連線中</span>
-          <span class="rolePill">播放端</span>
+          <span class="statusPill" id="syncStatus">Connecting</span>
+          <span class="rolePill">Player</span>
         </div>
         <div class="nowPlayingVisual">
           <div class="nowPlayingBars" aria-hidden="true">
@@ -34,8 +34,8 @@
           </div>
         </div>
         <div class="nowPlayingInfo">
-          <p class="label">接收曲目</p>
-          <h2 id="currentTitle">載入中</h2>
+          <p class="label">Assigned Track</p>
+          <h2 id="currentTitle">Loading</h2>
         </div>
       </section>
 
@@ -46,38 +46,38 @@
       </section>
 
       <section class="transport" id="controllerOnly">
-        <button class="mainButton" id="playPause" type="button" aria-label="播放或暫停">
-          <span id="playIcon">▶</span>
+        <button class="mainButton" id="playPause" type="button" aria-label="Play or pause">
+          <span id="playIcon">Play</span>
         </button>
       </section>
 
       <section class="playerArm" id="playerOnly">
-        <button class="armButton" id="armButton" type="button">啟用此裝置播放</button>
-        <p id="playerHint">請先點擊啟用，讓瀏覽器允許播放聲音；之後會由控制台同步指揮。</p>
+        <button class="armButton" id="armButton" type="button">Enable Player</button>
+        <p id="playerHint">Tap enable once so the browser can start synchronized playback.</p>
       </section>
 
       <section class="volumePanel playerVolume">
-        <label for="volume">輸出音量</label>
+        <label for="volume">Output</label>
         <input id="volume" type="range" min="0" max="200" value="85" />
         <span id="volumeValue">85%</span>
       </section>
 
       <div class="secondaryActions">
-        <button class="ghostButton" id="stopButton" type="button">停止</button>
+        <button class="ghostButton" id="stopButton" type="button">Stop</button>
       </div>
 
       <section class="devicePanel" id="devicePanel">
         <div class="sectionHeader">
           <div>
-            <p class="label">同步裝置</p>
-            <h2>本機狀態</h2>
+            <p class="label">Live Devices</p>
+            <h2>Network Status</h2>
           </div>
           <div class="statusPill subtle" id="leadStatus">-- ms</div>
         </div>
         <div class="devices" id="deviceList"></div>
       </section>
 
-      <section class="tracks" id="trackList" aria-label="播放清單"></section>
+      <section class="tracks" id="trackList" aria-label="Track library"></section>
     </main>
 
     <audio id="audio" preload="auto" playsinline></audio>
