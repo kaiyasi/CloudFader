@@ -65,4 +65,7 @@ GitHub Actions builds `CloudFader.exe` and attaches it to the release.
 
 ## License
 
-MIT License. Copyright Serelix Studio.
+KYL Open License. Copyright Serelix Studio.
+
+
+See [LICENSING.md](LICENSING.md) for license scope, third-party exceptions, and earlier-version notices.
